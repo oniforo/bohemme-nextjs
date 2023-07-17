@@ -5,7 +5,9 @@ import { useRouter } from 'next/router'
 import { CommerceProvider } from '@framework'
 import LoginView from '@components/auth/LoginView'
 import { useUI } from '@components/ui/context'
-import { Navbar, Footer } from '@components/common'
+/* import { Navbar, Footer } from '@components/common' */
+import Navbar from '../../../custom/common/Navbar'
+import Footer from '../../../custom/common/Footer'
 import ShippingView from '@components/checkout/ShippingView'
 import CartSidebarView from '@components/cart/CartSidebarView'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
@@ -103,6 +105,26 @@ const SidebarUI: React.FC<{ links: LinkProps[] }> = ({ links }) => {
   ) : null
 }
 
+/* Revisar FeatureBar para adicionar transparência e posicionar botão abaixo do texto */
+const CookieBar: React.FC<{ 
+  title: string, 
+  acceptedCookies: boolean, 
+  onAcceptCookies(): any, 
+  buttonContent: string
+}> = ({ title, acceptedCookies, onAcceptCookies, buttonContent }) => {
+  return (
+    <FeatureBar
+      title={title}
+      hide={acceptedCookies}
+      action={
+        <Button className="mx-5" onClick={() => onAcceptCookies()}>
+          {buttonContent}
+        </Button>
+      }
+    />
+  )
+}
+
 const Layout: React.FC<Props> = ({
   children,
   pageProps: { categories = [], ...pageProps },
@@ -124,14 +146,11 @@ const Layout: React.FC<Props> = ({
         <CheckoutProvider>
           <SidebarUI links={navBarlinks} />
         </CheckoutProvider>
-        <FeatureBar
-          title="This site uses cookies to improve your experience. By clicking, you agree to our Privacy Policy."
-          hide={acceptedCookies}
-          action={
-            <Button className="mx-5" onClick={() => onAcceptCookies()}>
-              Accept cookies
-            </Button>
-          }
+        <CookieBar 
+          title='Este site usa cookies para melhorar sua experiência de compra. Ao aceitar, você concorda com nossa Política de Privacidade.' 
+          acceptedCookies={acceptedCookies} 
+          onAcceptCookies={onAcceptCookies} 
+          buttonContent='Aceitar cookies' 
         />
       </div>
     </CommerceProvider>
