@@ -2,8 +2,12 @@ import { FC } from 'react'
 import Link from 'next/link'
 import s from './Navbar.module.css'
 import NavbarRoot from './NavbarRoot'
-import { Logo, Container } from '@components/ui'
-import { Searchbar, UserNav } from '@components/common'
+import { /* Logo,  */Container } from '@components/ui'
+/* import Logo from '@custom/ui/Logo/Logo'
+import LogoWritten from '@custom/ui/Logo/LogoWritten' */
+import { /* Searchbar, */ UserNav } from '@components/common'
+import Searchbar from '@custom/common/Searchbar'
+import Image from 'next/image'
 
 interface Link {
   href: string
@@ -14,20 +18,20 @@ interface NavbarProps {
   links?: Link[]
 }
 
-const BottomNavbar: FC = () => {
+const BottomNavbar: FC<NavbarProps> = ({ links }) => {
   return (
-    <Container clean className="mx-auto max-w-8xl px-6 flex justify-center">
-      <div className={s.nav}>
+    <Container clean className="mx-auto max-w-8xl px-6 justify-center hidden md:flex">
+      <div className={s.nav.concat('')}>
         <div className="flex items-center flex-1">
           <nav className={s.navMenu}>
-            <NavLink href='/search' title='Início' />
-            <NavLink href='/search' title='Quem somos' />
-            <NavLink href='/search' title='Contato' />
-            <NavLink href='/search' title='Cervejas por estilo' />
-            <NavLink href='/search' title='Cervejas nacionais' />
-            <NavLink href='/search' title='Cervejas estrangeiras' />
-            <NavLink href='/search' title='Copos e taças' />
-            <NavLink href='/search' title='Outros acessórios' />            
+            <NavLink href='/' title='Início' />
+            <NavLink href='/sobre' title='Quem somos' />
+            <NavLink href='/contato' title='Contato' />
+            <NavLink href='/search/estilos' title='Cervejas por estilo' />
+            <NavLink href='/search/nacionais' title='Cervejas nacionais' />
+            <NavLink href='/search/importadas' title='Cervejas estrangeiras' />
+            <NavLink href='/search/copos' title='Copos e taças' />
+            <NavLink href='/search/acessorios' title='Outros acessórios' />            
           </nav>
         </div>
       </div>
@@ -45,26 +49,17 @@ const NavLink: FC<{ href: string, title: string }> = ({ href, title }) => {
 
 const Navbar: FC<NavbarProps> = ({ links }) => (
   <NavbarRoot>
-    <Container clean className="mx-auto max-w-8xl px-6">
-      <div className={s.nav}>
+    <Container /* clean */ className="mx-auto max-w-8xl px-6 pt-2">
+      <div className={s.nav.concat('')}>
         <div className="flex items-center flex-1">
-          <Link href="/" className={s.logo} aria-label="Logo">
-            <Logo />
+          <Link href='/' className={s.logo.concat(' flex items-center')}>
+            <div><Image src={'/logo.png'} width={30} height={30} alt='logo' /></div>
+            <div><Image src={'/beviamo.png'} width={150} height={30} alt='beviamo' /></div>
           </Link>
-          <nav className={s.navMenu}>
-            <Link href="/search" className={s.link}>
-              All
-            </Link>
-            {links?.map((l) => (
-              <Link href={l.href} key={l.href} className={s.link}>
-                {l.label}
-              </Link>
-            ))}
-          </nav>
         </div>
         {process.env.COMMERCE_SEARCH_ENABLED && (
           <div className="justify-center flex-1 hidden lg:flex">
-            <Searchbar />
+            <Searchbar className='rounded-full'/>
           </div>
         )}
         <div className="flex items-center justify-end flex-1 space-x-8">
@@ -73,11 +68,11 @@ const Navbar: FC<NavbarProps> = ({ links }) => (
       </div>
       {process.env.COMMERCE_SEARCH_ENABLED && (
         <div className="flex pb-4 lg:px-6 lg:hidden">
-          <Searchbar id="mobile-search" />
+          <Searchbar id="mobile-search" className='rounded-full'/>
         </div>
       )}
     </Container>
-    <BottomNavbar />
+    <BottomNavbar links={links} />
   </NavbarRoot>
 )
 
