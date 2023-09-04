@@ -36,7 +36,7 @@ export async function getStaticProps({
 
   const productVariants = relatedProducts.map(product => {
     return commerce.getProduct({
-      variables: { slug: product.slug },
+      variables: { slug: product.slug as string },
       config,
       preview
     })
@@ -89,7 +89,7 @@ export default function Slug({
   return router.isFallback ? (
     <h1>Loading...</h1>
   ) : (
-    <ProductView product={product} relatedProducts={relatedProducts} />
+    <ProductView product={product} relatedProducts={relatedProducts as any} />
   )
 }
 
