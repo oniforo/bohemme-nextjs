@@ -41,7 +41,7 @@ export async function getStaticProps({
 
   const productVariants = products.map((product) => {
     return commerce.getProduct({
-      variables: { slug: product.slug },
+      variables: { slug: product.slug as string },
       config,
       preview
     })
@@ -101,8 +101,8 @@ export default function Home({
           pagination={{clickable: true}}
         >
           {
-            products.map(product => (
-              <SwiperSlide key={product}>
+            products.map(product => (              
+              <SwiperSlide>
                 <ProductCard data={product} />                  
               </SwiperSlide>
             ))
@@ -153,7 +153,8 @@ export default function Home({
                   <div key={style} className='flex'>
                     <div className='border rounded-lg p-5 text-center flex flex-col border-amber-900'>
                       <div className='text-amber-900 font-bold mb-2'>{style}</div>
-                      <div className='flex-grow'>{estilos[style]}</div>
+                      {/* Understand further about this type casting */}
+                      <div className='flex-grow'>{(estilos as any)[style]}</div>
                       <Button href='search' innerText='Ver cervejas' className='w-fit mx-auto px-3' />
                     </div>
                   </div>
