@@ -1,0 +1,17 @@
+[
+    {
+        "title": "Devolução gratuita",
+        "subtitle": "Se você não gostou ou não se convenceu, pode devolver quanto quiser",
+        "url": "/assets/devolucao.png"
+    },
+    {
+        "title": "Compre e cancele quando quiser",
+        "subtitle": "Sua compra está protegida, cancele gratuitamente se você se arrepender",
+        "url": "/assets/parcelas.png"
+    },
+    {
+        "title": "Atendimento via whatsapp",
+        "subtitle": "Entre em contato pelo nosso Whatsapp para ter uma experiência ainda mais exclusiva",
+        "url": "/assets/whatsapp.png"
+    }
+]

@@ -1,0 +1,32 @@
+{
+    "reviews": [
+        {
+            "rating": 5,
+            "review": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris congue tortor sapien. Ut sed felis risus. Suspendisse in ex rhoncus, rutrum tellus eu, commodo sem. Mauris at facilisis nibh, iaculis placerat nisi. Nulla eget posuere ligula. In hac habitasse platea dictumst.",
+            "reviewer": "Isabela Eckhard"
+        },
+        {
+            "rating": 5,
+            "review": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris congue tortor sapien. Ut sed felis risus. Suspendisse in ex rhoncus, rutrum tellus eu, commodo sem.",
+            "reviewer": "Débora Fólis"
+        }
+    ],
+    "questions": [
+        {
+            "question": "",
+            "name": ""
+        },
+        {
+            "question": "",
+            "name": ""
+        },
+        {
+            "question": "",
+            "name": ""
+        },
+        {
+            "question": "",
+            "name": ""
+        }
+    ]
+}

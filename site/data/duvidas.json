@@ -1,0 +1,20 @@
+[
+    {
+        "name": "Frete",
+        "description": "Escrever um texto sobre o frete aqui nessa seção",
+        "path": "/assets/frete.png",
+        "active": true
+    },
+    {
+        "name": "Parcelas",
+        "description": "Escrever um texto sobre os modos de pagamento e possibilidades de parcelas no crédito, Pix, etc.",
+        "path": "/assets/parcelas.png",
+        "active": true
+    },
+    {
+        "name": "Não curtiu?",
+        "description": "Escrever se podem pedir reembolso caso tenham tido algum problema ou afim",
+        "path": "/assets/devolucao.png",
+        "active": true
+    }
+]
