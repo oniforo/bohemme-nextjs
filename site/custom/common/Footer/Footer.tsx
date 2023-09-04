@@ -55,7 +55,7 @@ const Footer: FC<Props> = ({ className, pages }) => {
               <div className='border rounded-full w-8 h-8 mr-2'></div>
               <div className='border rounded-full w-8 h-8 mr-2'></div>
               <div className='border rounded-full w-8 h-8 mr-2'></div>
-              <div className='border rounded-full w-8 h-8 mr-2'></div>
+              <div className='border rounded-full w-8 h-8 mr-2'></div>              
             </div>          
           </div>
           {/* <div className="col-span-1 lg:col-span-4 border">
@@ -97,9 +97,14 @@ const Footer: FC<Props> = ({ className, pages }) => {
             </div>
           </div> */}
         </div>
-        <div className="pt-6 pb-10 flex flex-col md:flex-row justify-between items-center space-y-4 text-accent-6 text-sm">
+        <div className="
+          pt-6 pb-10 flex flex-col 
+          md:flex-row justify-between items-center space-y-4 text-accent-6 text-sm
+          text-center lg:text-left
+        ">
           <div>
-            <span>&copy; 2023 Beviamo Ecommerce de Cervejas. CNPJ 25.231.363/0001-69. Todos os direitos reservados.</span>
+            <div>&copy; 2023 Beviamo Ecommerce de Cervejas.</div>
+            <div>CNPJ 25.231.363/0001-69. Todos os direitos reservados.</div>
           </div>
           <div className="flex items-center text-primary text-sm">
             <span className="text-primary">Created by</span>
