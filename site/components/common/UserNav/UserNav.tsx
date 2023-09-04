@@ -19,8 +19,8 @@ import type { LineItem } from '@commerce/types/cart'
 const countItem = (count: number, item: LineItem) => count + item.quantity
 
 const UserNav: React.FC<{
-  className?: string
-}> = ({ className }) => {
+  className?: string, bagColor?: string
+}> = ({ className, bagColor }) => {
   const { data } = useCart()
   const { data: isCustomerLoggedIn } = useCustomer()
   const { closeSidebarIfPresent, openModal, setSidebarView, openSidebar } =
@@ -45,7 +45,7 @@ const UserNav: React.FC<{
               }}
               aria-label={`Cart items: ${itemsCount}`}
             >
-              <Bag />
+              <Bag stroke={bagColor} />
               {itemsCount > 0 && (
                 <span className={s.bagCount}>{itemsCount}</span>
               )}
