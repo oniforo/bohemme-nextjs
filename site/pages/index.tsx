@@ -1,3 +1,5 @@
+import { Fragment } from 'react'
+
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -102,7 +104,7 @@ export default function Home({
         >
           {
             products.map(product => (              
-              <SwiperSlide>
+              <SwiperSlide key={product?.slug}>
                 <ProductCard data={product} />                  
               </SwiperSlide>
             ))
