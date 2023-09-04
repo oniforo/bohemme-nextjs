@@ -8,10 +8,7 @@ import type { Brand } from '@commerce/types/site'
 import type { Product } from '@commerce/types/product'
 
 import { Layout } from '@components/common'
-import { ProductCard } from '@components/product'
 import { Container, Skeleton } from '@components/ui'
-
-import BeerCard from '@custom/product/ProductCard/BeerCard'
 
 import useSearch from '@framework/product/use-search'
 import rangeMap from '@lib/range-map'
