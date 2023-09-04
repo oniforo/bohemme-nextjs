@@ -45,10 +45,10 @@ const CartSidebarView: FC = () => {
             <Bag className="absolute" />
           </span>
           <h2 className="pt-6 text-2xl font-bold tracking-wide text-center">
-            Your cart is empty
+             Seu carrinho está vazio
           </h2>
           <p className="text-accent-3 px-10 text-center pt-2">
-            Biscuit oat cake wafer icing ice cream tiramisu pudding cupcake.
+            Não deixe de enchê-lo com nossa seleção de cervejas especiais.
           </p>
         </div>
       ) : error ? (
@@ -57,8 +57,8 @@ const CartSidebarView: FC = () => {
             <Cross width={24} height={24} />
           </span>
           <h2 className="pt-6 text-xl font-light text-center">
-            We couldn’t process the purchase. Please check your card information
-            and try again.
+            Não conseguimos processar seu pedido. Verifique suas informações de 
+            pagamento e tente novamente.
           </h2>
         </div>
       ) : success ? (
@@ -67,7 +67,7 @@ const CartSidebarView: FC = () => {
             <Check />
           </span>
           <h2 className="pt-6 text-xl font-light text-center">
-            Thank you for your order.
+            Obrigado!
           </h2>
         </div>
       ) : (
@@ -75,7 +75,7 @@ const CartSidebarView: FC = () => {
           <div className="px-4 sm:px-6 flex-1">
             <Link href="/cart">
               <Text variant="sectionHeading" onClick={handleClose}>
-                My Cart
+                Meu Carrinho
               </Text>
             </Link>
             <ul className={s.lineItemsList}>
@@ -95,27 +95,29 @@ const CartSidebarView: FC = () => {
                 <span>Subtotal</span>
                 <span>{subTotal}</span>
               </li>
-              <li className="flex justify-between py-1">
+              {/* <li className="flex justify-between py-1">
                 <span>Taxes</span>
                 <span>Calculated at checkout</span>
-              </li>
+              </li> */}
               <li className="flex justify-between py-1">
-                <span>Shipping</span>
-                <span className="font-bold tracking-wide">FREE</span>
+                <span>Frete</span>
+                <span className="font-bold tracking-wide">Calculado no checkout</span>
               </li>
             </ul>
             <div className="flex justify-between border-t border-accent-2 py-3 font-bold mb-2">
-              <span>Total</span>
+              <span>Total (sem frete)</span>
               <span>{total}</span>
             </div>
             <div>
               {process.env.COMMERCE_CUSTOMCHECKOUT_ENABLED ? (
                 <Button Component="a" width="100%" onClick={goToCheckout}>
-                  Proceed to Checkout ({total})
+                  Finalizar compra ({total})
                 </Button>
               ) : (
-                <Button href="/checkout" Component="a" width="100%">
-                  Proceed to Checkout
+                <Button href="/checkout" Component="a" width="100%"
+                  className='bg-black text-white rounded-lg'
+                >
+                  Finalizar compra
                 </Button>
               )}
             </div>
