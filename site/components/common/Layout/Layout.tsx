@@ -3,11 +3,12 @@ import s from './Layout.module.css'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import { CommerceProvider } from '@framework'
-import LoginView from '@components/auth/LoginView'
+/* import LoginView from '@components/auth/LoginView' */
+import LoginView from '@custom/auth/LoginView'
 import { useUI } from '@components/ui/context'
 /* import { Navbar, Footer } from '@components/common' */
-import Navbar from '../../../custom/common/Navbar'
-import Footer from '../../../custom/common/Footer'
+import Navbar from '@custom/common/Navbar'
+import Footer from '@custom/common/Footer'
 import ShippingView from '@components/checkout/ShippingView'
 import CartSidebarView from '@components/cart/CartSidebarView'
 import { useAcceptCookies } from '@lib/hooks/useAcceptCookies'
@@ -30,18 +31,18 @@ const dynamicProps = {
   loading: Loading,
 }
 
-const SignUpView = dynamic(() => import('@components/auth/SignUpView'), {
+const SignUpView = dynamic(() => import('@custom/auth/SignUpView'), {
   ...dynamicProps,
 })
 
 const ForgotPassword = dynamic(
-  () => import('@components/auth/ForgotPassword'),
+  () => import('@custom/auth/ForgotPassword'),
   {
     ...dynamicProps,
   }
 )
 
-const FeatureBar = dynamic(() => import('@components/common/FeatureBar'), {
+const FeatureBar = dynamic(() => import('@custom/common/FeatureBar'), {
   ...dynamicProps,
 })
 
@@ -105,7 +106,6 @@ const SidebarUI: React.FC<{ links: LinkProps[] }> = ({ links }) => {
   ) : null
 }
 
-/* Revisar FeatureBar para adicionar transparência e posicionar botão abaixo do texto */
 const CookieBar: React.FC<{ 
   title: string, 
   acceptedCookies: boolean, 
@@ -117,9 +117,12 @@ const CookieBar: React.FC<{
       title={title}
       hide={acceptedCookies}
       action={
-        <Button className="mx-5" onClick={() => onAcceptCookies()}>
+        <div
+          className=' mx-5 p-4 px-8 bg-white text-black uppercase font-semibold rounded-full cursor-pointer hover:bg-gray-200'
+          onClick={() => onAcceptCookies()}
+        >
           {buttonContent}
-        </Button>
+        </div>
       }
     />
   )
