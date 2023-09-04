@@ -9,6 +9,9 @@ import { AddToCartButton } from './Button'
 import Title from './Title'
 import ProductCard from './ProductCard'
 import Reviews from './Reviews'
+import ProductMosaic from './ProductMosaic'
+
+import useWindowDimensions from '@custom/hooks/useWindowDimensions'
 
 const placeholderImg = '/product-img-placeholder.svg'
 
@@ -21,40 +24,37 @@ interface ProductViewProps {
 }
 
 const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
+    
+    const { width } = useWindowDimensions()
+    const maxRelated = width > 1140 ? 5 : width > 860 ? 4 : width > 580 ? 3 : width > 300 ? 4 : 2
+
     return (
         <Container className=''>
 
-            <div className='border grid grid-cols-2 pt-4 gap-4'>
+            <div className='grid md:grid-cols-2 pt-4 lg:pt-8 gap-4'>
 
                 {/* LEFT PANE */}
                 <div id='left-pane' >
-                    
-                    {/* IMAGE BOXES */}
-                    <div className='grid grid-cols-4 gap-2 border'>
-                        <div>
-                            <div className='mb-2'>
-                                <Image src={placeholderImg} width={200} height={200} alt='' />
-                            </div>
-                            <div className='mb-2'>
-                            <Image src={placeholderImg} width={200} height={200} alt='' />
-                            </div>
-                            <div className='mb-2'>
-                            <Image src={placeholderImg} width={200} height={200} alt='' />
-                            </div>
-                        </div>
-                        <div className='col-span-3'>
-                            <Image src={placeholderImg} width={1000} height={1000} alt='' />
-                        </div>
+
+                    <div className='md:hidden'>
+                        <div className='mb-4'>Breadcrumb &gt; Breadcrumb &gt; Breadcrumb</div>
+                        <div className='text-4xl font-bold mt-4'>{product.name}</div>
+                        <div className='text-2xl'>{product.vendor}</div>
+                        <Rating value={5} />
+                        <div className='text-4xl font-semibold mb-4'>R$ {product.price.value.toFixed(2)}</div>
                     </div>
 
+                    {/* PRODUCT MOSAIC */}
+                    <ProductMosaic images={product.images} />
+
                     {/* ADDITIONAL INFO - /data/produtos.json */}
-                    <div className='border p-4 pb-0 border-amber-700 rounded-xl my-8'>
+                    <div className='hidden md:block border p-4 pb-0 border-amber-700 rounded-xl my-8'>
                         {
                             duvidas.map(duvida => {
                                 return (
                                     <div className='flex mb-4'>
-                                        <div>
-                                            <Image src={duvida.url || placeholderImg} width={50} height={50} alt='' className='mr-4' />
+                                        <div className='mr-4'>
+                                            <Image src={duvida.url || placeholderImg} width={50} height={50} alt='' />
                                         </div>
                                         <div>
                                             <div className='font-bold'>{duvida.title}</div>
@@ -70,30 +70,68 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
 
                 {/* RIGHT PANE */}
                 <div id='right-pane'>
-                    <div>Breadcrumb &gt; Breadcrumb &gt; Breadcrumb &gt; Breadcrumb</div>
-                    <div className='text-4xl font-bold mt-4'>{product.name}</div>
-                    <div>{product.vendor}</div>
-                    <Rating value={5} />                
-                    <div className='text-4xl font-semibold'>R$ {product.price.value.toFixed(2)}</div>
+
+                    <div className='hidden md:block'>
+                        <div className='hidden md:block'>Breadcrumb &gt; Breadcrumb &gt; Breadcrumb</div>
+                        <div className='text-4xl font-bold mt-4'>{product.name}</div>
+                        <div>{product.vendor}</div>
+                        <Rating value={5} />
+                        <div className='text-4xl font-semibold'>R$ {product.price.value.toFixed(2)}</div>
+                    </div>
+
                     
                     <div className='flex my-4'>
                         <input type='number' className='border w-24 text-center rounded-xl' min={1} />
-                        <AddToCartButton product={{variants: []}} />
-                    </div>
+                        <AddToCartButton product={product} />
+                    </div>                                        
                     
-                    <div className='my-8'>
-                        <div><span className='font-bold'>Estilo: </span>Cerveja de trigo</div>
-                        <div><span className='font-bold'>ABV: </span>4.5%</div>
-                        <div><span className='font-bold'>IBU: </span>10</div>
-                        <div><span className='font-bold'>EBC: </span>06</div>                    
-                    </div>
                     <div>
                         <div className='font-bold'>Características:</div>
                         <div>Como numa sinfonia, a combinação dos lúpulos Citra, Mosaic e Talus traz intensas notas de frutas tropicais, abacaxi, coco e manga. A Symphony é nossa Juicy IPA com visual turvo, corpo sedoso e alta drinkability.</div>
                     </div>
-                    <div>Product: {JSON.stringify(product)}</div>
-                    <div>Related products: {JSON.stringify(relatedProducts)}</div>
+
+                    {/* DETAILS */}
+                    <div className='grid grid-cols-6 gap-4 mt-4'>
+                        {
+                            [
+                                { key: 'ABV', value: '4.5%' },
+                                { key: 'IBU', value: '10' },
+                                { key: 'EBC', value: '06' }
+                            ].map(({ key, value }) => {
+                                return (
+                                    <div className=''>
+                                        <div className='text-center mb-2 font-bold'>{key}</div>
+                                        <div className='
+                                            aspect-square flex justify-center items-center rounded-xl
+                                            text-xl md:text-2xl font-semibold bg-amber-900 text-white
+                                        '>{value}</div>
+                                    </div>            
+                                )
+                            })
+                        }                
+                    </div>
+                    {/* <br/><div>Product: {JSON.stringify(product)}</div> */}
+                    {/* <div>Related products: {JSON.stringify(relatedProducts)}</div> */}
                     
+                    {/* ADDITIONAL INFO [MOBILE ONLY] - /data/produtos.json */}
+                    <div className='md:hidden border p-4 pb-0 border-amber-700 rounded-xl my-8'>
+                        {
+                            duvidas.map(duvida => {
+                                return (
+                                    <div className='flex mb-4'>
+                                        <div className='mr-4'>
+                                            <Image src={duvida.url || placeholderImg} width={50} height={50} alt='' />
+                                        </div>
+                                        <div>
+                                            <div className='font-bold'>{duvida.title}</div>
+                                            <div>{duvida.subtitle}</div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+
                 </div>
             
             </div>
@@ -107,10 +145,12 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
             {/* RELATED PRODUCTS */}
             <div>
                 <Title text='Cervejas que você pode curtir também' />
-                <div className='grid grid-cols-5 gap-4 border'>
-                    { [1, 2, 3, 4, 5].map(product => <ProductCard />) }
+                <div className='
+                    grid gap-4
+                    card2:grid-cols-2 card3:grid-cols-3 card4:grid-cols-4 card5:grid-cols-5
+                '>
                     {
-                        relatedProducts.map(product => {
+                        relatedProducts.slice(0, maxRelated).map(product => {
                             return (
                                 <ProductCard data={product} />
                             )
