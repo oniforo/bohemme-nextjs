@@ -2,10 +2,31 @@ module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
+    './custom/**/*.{js,ts,jsx,tsx}'
   ],
   safelist: ['outline-none'],
   theme: {
+    screens: {
+      'card2': '300px',
+      'card3': '580px',
+      'sm': '640px',
+      'md': '768px',
+      'card4': '860px',
+      'lg': '1024px',
+      'card5': '1140px',
+      'xl': '1280px',
+      '2xl': '1536px',
+    },
     extend: {
+      keyframes: {
+        slide: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translate(-100%)' }
+        }
+      },
+      animation: {
+        slide: 'slide 20s infinite linear'
+      },
       maxWidth: {
         '8xl': '1920px',
       },
