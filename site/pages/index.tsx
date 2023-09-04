@@ -1,5 +1,3 @@
-import { Fragment } from 'react'
-
 import type { GetStaticPropsContext, InferGetStaticPropsType } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -15,8 +13,7 @@ import { Pagination } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/pagination'
 
-import duvidas from 'data/duvidas.json'
-import estilos from 'data/estilos.json'
+import { duvidas, estilos } from 'data'
 
 /* Custom components and hooks */
 import { useWindowDimensions } from '@custom/hooks'
