@@ -29,7 +29,7 @@ import {
   getDesignerPath,
   useSearchMeta,
 } from '@lib/search'
-import ErrorMessage from '../ui/ErrorMessage'
+import ErrorMessage from '@components/ui/ErrorMessage'
 
 export default function Search({ categories, brands }: SearchPropsType) {
   const [activeFilter, setActiveFilter] = useState('')
