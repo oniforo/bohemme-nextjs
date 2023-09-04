@@ -1,0 +1,5 @@
+export { default as duvidas } from './duvidas.json'
+export { default as estilos } from './estilos.json'
+export { default as partners } from './partners.json'
+export { default as produtos } from './produtos.json'
+export { default as reviews } from './reviews.json'
