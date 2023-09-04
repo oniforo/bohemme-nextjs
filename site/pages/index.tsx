@@ -97,8 +97,9 @@ export default function Home({
       <Container className='select-none py-8 border-b'>
         <Title text='Seleção Beviamo, as 10 mais adoradas' />
         <Swiper
-          slidesPerView={slidesPerView(width) as any}
-          spaceBetween={spaceBetween(width) as any}
+          // @ts-ignore
+          slidesPerView={slidesPerView(width)}
+          spaceBetween={spaceBetween(width)}
           modules={[Pagination]}
           pagination={{clickable: true}}
         >
