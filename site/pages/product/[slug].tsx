@@ -7,9 +7,7 @@ import { useRouter } from 'next/router'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
 
-/* import { ProductView } from '@components/product' */
-/* import ProductView from '@custom/product/ProductView' */
-import ProductView from '@custom/beviamo/ProductView'
+import { ProductView } from '@custom/beviamo'
 
 export async function getStaticProps({
   params,
@@ -26,7 +24,7 @@ export async function getStaticProps({
     preview,
   })
   const allProductsPromise = commerce.getAllProducts({
-    variables: { first: 4 },
+    variables: { first: 5 },
     config,
     preview,
   })
@@ -35,6 +33,18 @@ export async function getStaticProps({
   const { categories } = await siteInfoPromise
   const { product } = await productPromise
   const { products: relatedProducts } = await allProductsPromise
+
+  const productVariants = relatedProducts.map(product => {
+    return commerce.getProduct({
+      variables: { slug: product.slug },
+      config,
+      preview
+    })
+  })
+
+  const productVariantsPromise = await Promise.all(productVariants)
+
+  const productsWithVariants = productVariantsPromise.map(products => products.product)
 
   if (!product) {
     return {
@@ -46,7 +56,7 @@ export async function getStaticProps({
     props: {
       pages,
       product,
-      relatedProducts,
+      relatedProducts: productsWithVariants,
       categories,
     },
     revalidate: 200,
