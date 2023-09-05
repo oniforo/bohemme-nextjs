@@ -1,9 +1,44 @@
-{
-    "Maali": {
-        "image": "/partners/maali.png"
+[
+    {
+        "name": "Oca",
+        "image": "/partners/oca.png",
+        "slug": "oca",
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Non tellus orci ac auctor augue mauris. Mi ipsum faucibus vitae aliquet nec ullamcorper sit amet. Augue mauris augue neque gravida in fermentum et sollicitudin ac. Turpis egestas sed tempus urna et pharetra pharetra. Enim neque volutpat ac tincidunt vitae semper quis lectus. A iaculis at erat pellentesque adipiscing commodo elit at. Odio pellentesque diam volutpat commodo. Neque vitae tempus quam pellentesque. Sit amet nisl purus in mollis nunc. Nunc faucibus a pellentesque sit amet. Sit amet mauris commodo quis imperdiet. Aenean et tortor at risus viverra adipiscing at in tellus. Mi ipsum faucibus vitae aliquet nec ullamcorper. Adipiscing elit ut aliquam purus sit amet luctus venenatis lectus. Interdum consectetur libero id faucibus nisl tincidunt eget. Ac felis donec et odio pellentesque diam volutpat commodo. Ullamcorper velit sed ullamcorper morbi tincidunt ornare massa eget. Magnis dis parturient montes nascetur ridiculus mus mauris. Neque viverra justo nec ultrices dui sapien."
     },
-    "Under Tap": {
-        "image": "/partners/under-tap.png"
+    {
+        "name": "Octopus",
+        "image": "/partners/octopus.png",
+        "slug": "octopus",
+        "description": "Convallis a cras semper auctor neque vitae tempus quam pellentesque. Lectus magna fringilla urna porttitor rhoncus. Id diam maecenas ultricies mi eget mauris pharetra et. Mauris pharetra et ultrices neque ornare aenean euismod elementum nisi. Interdum velit laoreet id donec ultrices tincidunt arcu. Nibh ipsum consequat nisl vel pretium. Risus sed vulputate odio ut. Elementum eu facilisis sed odio morbi quis commodo. At elementum eu facilisis sed odio morbi quis commodo. Diam quam nulla porttitor massa id neque."
     },
-    "Beviamo": {}
-}
+    {
+        "name": "Under Tap",
+        "image": "/partners/under-tap.png",
+        "slug": "under-tap",
+        "description": "Faucibus scelerisque eleifend donec pretium vulputate. Velit sed ullamcorper morbi tincidunt ornare. In pellentesque massa placerat duis ultricies lacus. Tincidunt lobortis feugiat vivamus at augue. Tincidunt tortor aliquam nulla facilisi cras fermentum odio. A scelerisque purus semper eget duis at tellus at. Malesuada fames ac turpis egestas maecenas pharetra convallis. Vulputate sapien nec sagittis aliquam malesuada bibendum arcu vitae. Adipiscing elit pellentesque habitant morbi tristique senectus et. Dui nunc mattis enim ut tellus elementum sagittis. Senectus et netus et malesuada fames. Velit dignissim sodales ut eu sem integer vitae justo. Tincidunt augue interdum velit euismod. Purus in mollis nunc sed id semper risus. Mus mauris vitae ultricies leo integer malesuada nunc vel."
+    },
+    {
+        "name": "Zalaz",
+        "image": "/partners/zalaz.png",
+        "slug": "zalaz",
+        "description": "Nulla facilisi nullam vehicula ipsum. Adipiscing elit pellentesque habitant morbi tristique senectus. Arcu cursus vitae congue mauris. Nisi est sit amet facilisis magna etiam tempor. Etiam non quam lacus suspendisse faucibus interdum. Sit amet consectetur adipiscing elit pellentesque habitant morbi. Facilisi cras fermentum odio eu feugiat pretium nibh. Turpis in eu mi bibendum neque. Morbi tincidunt augue interdum velit. Quis commodo odio aenean sed adipiscing diam donec adipiscing tristique. Sapien eget mi proin sed libero enim. Cum sociis natoque penatibus et. Fermentum dui faucibus in ornare quam viverra orci sagittis. Cursus risus at ultrices mi. Enim ut tellus elementum sagittis vitae et leo duis."
+    },
+    {
+        "name": "Maali",
+        "image": "/partners/maali.png",
+        "slug": "maali",
+        "description": "Vitae purus faucibus ornare suspendisse. Justo nec ultrices dui sapien eget mi proin sed libero. Sodales neque sodales ut etiam sit amet nisl purus. Aliquet lectus proin nibh nisl condimentum id venenatis a. Cursus vitae congue mauris rhoncus aenean vel elit scelerisque. Dictum at tempor commodo ullamcorper. Nisl pretium fusce id velit ut tortor. Ac felis donec et odio pellentesque diam volutpat commodo. Interdum posuere lorem ipsum dolor sit. Volutpat ac tincidunt vitae semper quis lectus nulla at. In dictum non consectetur a erat nam at. Risus feugiat in ante metus dictum. Augue eget arcu dictum varius duis at consectetur. Amet mattis vulputate enim nulla aliquet porttitor lacus luctus. Sed ullamcorper morbi tincidunt ornare massa eget egestas purus viverra. Eget gravida cum sociis natoque penatibus et magnis dis. Dolor magna eget est lorem ipsum dolor sit amet consectetur. Nisl pretium fusce id velit ut tortor. Praesent elementum facilisis leo vel. Morbi blandit cursus risus at."
+    },
+    {
+        "name": "Frohenfeld",
+        "image": "/partners/frohenfeld.png",
+        "slug": "frohenfeld",
+        "description": "Feugiat sed lectus vestibulum mattis ullamcorper velit sed. Consequat semper viverra nam libero justo laoreet sit amet. Quis vel eros donec ac odio tempor orci dapibus ultrices. Nunc faucibus a pellentesque sit amet porttitor. Arcu risus quis varius quam quisque id. Sed libero enim sed faucibus. Quam viverra orci sagittis eu volutpat. Ipsum faucibus vitae aliquet nec ullamcorper sit amet. Facilisi etiam dignissim diam quis enim. Tellus at urna condimentum mattis pellentesque id nibh. Morbi enim nunc faucibus a pellentesque sit amet porttitor. Et malesuada fames ac turpis. Quam viverra orci sagittis eu volutpat odio. Nibh tortor id aliquet lectus proin. Convallis posuere morbi leo urna. Ut placerat orci nulla pellentesque dignissim enim sit amet. Neque vitae tempus quam pellentesque nec nam. Sed augue lacus viverra vitae. Porta nibh venenatis cras sed felis eget velit aliquet sagittis. Sed id semper risus in hendrerit gravida rutrum quisque non."
+    },
+    {
+        "name": "Hocus Pocus",
+        "image": "/partners/hocus-pocus.png",
+        "slug": "hocus-pocus",
+        "description": "Convallis tellus id interdum velit laoreet id donec ultrices tincidunt. Tincidunt tortor aliquam nulla facilisi cras fermentum. Faucibus nisl tincidunt eget nullam non nisi est. Urna neque viverra justo nec ultrices dui sapien eget. Fames ac turpis egestas sed tempus urna et pharetra. Etiam sit amet nisl purus in mollis nunc sed id. Cras adipiscing enim eu turpis egestas pretium. Non quam lacus suspendisse faucibus interdum posuere lorem. Nisl purus in mollis nunc sed id semper risus. Tortor id aliquet lectus proin nibh nisl condimentum id venenatis. At volutpat diam ut venenatis tellus in metus. Ornare suspendisse sed nisi lacus sed viverra. Pellentesque dignissim enim sit amet. Cursus risus at ultrices mi tempus imperdiet nulla. Fermentum et sollicitudin ac orci phasellus. Fermentum et sollicitudin ac orci phasellus egestas tellus rutrum. Enim lobortis scelerisque fermentum dui faucibus in ornare quam viverra. Ullamcorper sit amet risus nullam eget felis eget nunc. Magna eget est lorem ipsum dolor."
+    }
+]
