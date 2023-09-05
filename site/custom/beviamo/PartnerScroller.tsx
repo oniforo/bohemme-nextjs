@@ -1,22 +1,13 @@
 import Image from 'next/image'
-
-const partners = [
-    'frohenfeld.png',
-    'hocus-pocus.png',
-    'oca.png',
-    'octopus.png',
-    'under-tap.png',
-    'maali.png',
-    'zalaz.png'
-]
+import { partners } from '../../data'
 
 const PartnerGroup = () => {
     return (
         <div className='flex w-min animate-slide group-hover:pause'>
             {
-                partners.map(logo => (
-                    <div key={logo} className='mx-4 w-24 md:w-32 hover:scale-110 cursor-pointer'>
-                        <Image src={'/partners/'.concat(logo)} width={300} height={300} alt='' />
+                partners.map(partner => (
+                    <div key={partner.slug} className='mx-4 w-24 md:w-32 hover:scale-110 cursor-pointer'>
+                        <Image src={partner.image} width={300} height={300} alt='' />
                     </div>
             ))
             }
