@@ -31,6 +31,8 @@ import {
 } from '@lib/search'
 import ErrorMessage from '@components/ui/ErrorMessage'
 
+import { ProductCard } from '@custom/beviamo'
+
 export default function Search({ categories, brands }: SearchPropsType) {
   const [activeFilter, setActiveFilter] = useState('')
   const [toggleFilter, setToggleFilter] = useState(false)
@@ -74,10 +76,13 @@ export default function Search({ categories, brands }: SearchPropsType) {
       <div className='mt-4'>
         <div>Início &gt; Cervejas por estilo</div>
         <div className='text-4xl font-bold mb-4'>Cervejas por estilo</div>
+        {/* <div>activeBrand: {JSON.stringify(activeBrand)}</div>
+        <div>activeCategory: {JSON.stringify(activeCategory)}</div>
+        <div>activeFilter: {JSON.stringify(activeFilter)}</div> */}
         <div className='flex mb-4'>
           {
             categories.map(category => {
-              return <div className='rounded-full px-8 py-2 mr-2 bg-gray-700 text-white cursor-pointer'>
+              return <div key={category.name} className='rounded-full px-8 py-2 mr-2 bg-gray-700 text-white cursor-pointer'>
                 {category.name}
               </div>
             })
@@ -100,7 +105,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
           
           <div className='mb-4'>
             <input className='appearance-none outline-none bg-gray-700 h-2 rounded-full'
-              type='range' min='50' max='500' value='300' step='10' />
+              type='range' min='50' max='500' defaultValue='300' step='10' />
           </div>
           
           <div className='text-xl my-4'>Estilos de cerveja</div>
@@ -130,29 +135,9 @@ export default function Search({ categories, brands }: SearchPropsType) {
         </div>
         {/* Products */}
         <div className='col-span-4 grid grid-cols-4 gap-4'>          
-          {
-            data?.products.map(product => {
-              return (
-                <div className='border rounded-2xl overflow-hidden border-amber-700'>
-                  <Image 
-                    src={product.images[0]?.url || placeholderImg} 
-                    alt='' width={250} height={250} 
-                    style={{ objectFit: 'contain', cursor: 'pointer' }}
-                  />
-                  <div className='p-2 text-center'>
-                    <div className='text-xl'>{product.name}</div>
-                    <div>{product.vendor}</div>
-                    <div className='my-2 text-xl font-bold'>
-                      R$ {product.price.value.toFixed(2)}
-                    </div>
-                    <div className='p-1 rounded-lg m-2 bg-amber-700 text-white cursor-pointer'>
-                      Adicionar ao carrinho
-                    </div>
-                  </div>
-                </div>
-              )
-            })
-          }          
+          { 
+            data?.products.map(product => <ProductCard data={product} />)
+          }
         </div>
       </div>
     </Container>
