@@ -1,15 +1,19 @@
-import { getSearchStaticProps } from '@lib/search-props'
-import type { GetStaticPathsResult, GetStaticPropsContext } from 'next'
-import Search from '@components/search'
+import { getSearchStaticProps } from '@custom/lib/search-props'
+import type { GetStaticPropsContext } from 'next'
+import Search from '@custom/components/brewery'
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   return getSearchStaticProps(context)
 }
 
-export function getStaticPaths(): GetStaticPathsResult {
+export async function getStaticPaths() {
+  const { partners } = await require('../../../data')
+  const paths = partners.map((partner: { slug: string }) => (
+    { params: { name: partner.slug } }
+  ))
   return {
-    paths: [],
-    fallback: 'blocking',
+    paths,
+    fallback: false,
   }
 }
 
