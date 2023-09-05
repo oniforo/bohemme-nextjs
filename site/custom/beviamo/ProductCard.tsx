@@ -17,7 +17,7 @@ const placeholderProduct = {
 const ProductCard = ({ data }: any) => {
     
     const product = data ? data : placeholderProduct
-    const containerStyle = 'border rounded-2xl overflow-hidden border-amber-900 mb-8'
+    const containerStyle = 'border rounded-2xl overflow-hidden border-amber-900 mb-8 h-min'
     
     return (
         <div className={containerStyle}>
