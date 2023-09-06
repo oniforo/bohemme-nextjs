@@ -27,11 +27,13 @@ const BottomNavbar: FC<NavbarProps> = ({ links }) => {
             <NavLink href='/' title='Início' />
             <NavLink href='/sobre' title='Quem somos' />
             <NavLink href='/contato' title='Contato' />
-            <NavLink href='/search/estilos' title='Cervejas por estilo' />
-            <NavLink href='/search/nacionais' title='Cervejas nacionais' />
-            <NavLink href='/search/importadas' title='Cervejas estrangeiras' />
-            <NavLink href='/search/copos' title='Copos e taças' />
-            <NavLink href='/search/acessorios' title='Outros acessórios' />            
+            {/* On hover, open nacionais/importadas and a sublist of items */}
+            <NavLink href='/search/' title='Cervejas' />
+            <NavLink href='/search/cervejarias' title='Cervejarias' />
+            {/* On hover, open dropdown with list of styles */}
+            <NavLink href='/search/estilos' title='Estilos' />
+            {/* On hover, copos, taças e outros acessórios */}
+            <NavLink href='/search/acessorios' title='Copos' />            
           </nav>
         </div>
       </div>
@@ -49,8 +51,8 @@ const NavLink: FC<{ href: string, title: string }> = ({ href, title }) => {
 
 const Navbar: FC<NavbarProps> = ({ links }) => (
   <NavbarRoot>
-    <Container /* clean */ className="mx-auto max-w-8xl px-6 pt-2">
-      <div className={s.nav.concat('')}>
+    <Container /* clean */ className="mx-auto max-w-8xl px-6 lg:pt-2">
+      <div className={s.nav}>
         <div className="flex items-center flex-1">
           <Link href='/' className={s.logo.concat(' flex items-center')}>
             <div><Image src={'/logo.png'} width={30} height={30} alt='logo' /></div>
