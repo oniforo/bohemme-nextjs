@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Image from 'next/image'
 import { partners } from '../../data'
 
@@ -6,9 +7,13 @@ const PartnerGroup = () => {
         <div className='flex w-min animate-slide group-hover:pause'>
             {
                 partners.map(partner => (
-                    <div key={partner.slug} className='mx-4 w-24 md:w-32 hover:scale-110 cursor-pointer'>
+                    <Link 
+                        key={partner.slug} 
+                        href={`/search/cervejarias/${partner.slug}`} 
+                        className='mx-4 w-24 md:w-32 hover:scale-110 cursor-pointer'
+                    >
                         <Image src={partner.image} width={300} height={300} alt='' />
-                    </div>
+                    </Link>
             ))
             }
         </div>
