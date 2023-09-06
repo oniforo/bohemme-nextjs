@@ -31,7 +31,7 @@ import {
 } from '@lib/search'
 import ErrorMessage from '@components/ui/ErrorMessage'
 
-import { ProductCard } from '@custom/beviamo'
+import { ProductCard, PartnerScroller } from '@custom/beviamo'
 import { partners } from '../../data'
 
 export default function Search({ categories, brands }: SearchPropsType) {
@@ -77,7 +77,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
 
   return (
     <Container>
-      <div className='mt-4'>
+      <div className='mt-4 mb-12'>
         <div className='mb-8'>Início &gt; Cervejarias &gt; {activeBrand?.name}</div>
         
         {/* <div className='text-4xl font-bold mb-4'>{activeBrand?.name}</div>        
@@ -102,32 +102,32 @@ export default function Search({ categories, brands }: SearchPropsType) {
             <div className='text-4xl font-bold'>{activeBrand?.name}</div>
             <Rating value={4} />
             <div>{metadata[0]?.description}</div>
+            <div className='flex my-4'>
+              {
+                categories.map(category => {
+                  return <div key={category.name} className='rounded-full px-8 py-2 mr-2 bg-gray-700 text-white cursor-pointer'>
+                    {category.name}
+                  </div>
+                })
+              }
+            </div>
+            <div className='text-right my-4'>
+              Ordenar por: <select className='p-2 rounded-xl bg-white border'>
+                <option>Destaques</option>
+                <option>Relevância</option>
+                <option>Preço</option>
+              </select>
+            </div>
             <div className='grid grid-cols-4 gap-4 mt-8'>
               { data?.products.map(product => <ProductCard data={product} />) }
             </div>
           </div>
         </div>
-
-        <br/>
-
-        <div className='flex mb-4'>
-          {
-            categories.map(category => {
-              return <div key={category.name} className='rounded-full px-8 py-2 mr-2 bg-gray-700 text-white cursor-pointer'>
-                {category.name}
-              </div>
-            })
-          }
-        </div>
-        <div className='text-right my-4'>
-          Ordenar por: <select className='p-2 rounded-xl bg-white border'>
-            <option>Destaques</option>
-            <option>Relevância</option>
-            <option>Preço</option>
-          </select>
-        </div>
+      
       </div>
       
+      <PartnerScroller />
+
     </Container>
   )
 }
