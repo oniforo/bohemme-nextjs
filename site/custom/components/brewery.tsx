@@ -76,59 +76,67 @@ export default function Search({ categories, brands }: SearchPropsType) {
   const metadata = partners.filter(p => p.slug === brand)
 
   return (
-    <Container>
-      <div className='mt-4 mb-12'>
-        <div className='mb-8'>Início &gt; Cervejarias &gt; {activeBrand?.name}</div>
-        
-        {/* <div className='text-4xl font-bold mb-4'>{activeBrand?.name}</div>        
-        <div>activeBrand: {JSON.stringify(activeBrand)}</div>
-        <div>activeCategory: {JSON.stringify(activeCategory)}</div>
-        <div>activeFilter: {JSON.stringify(activeFilter)}</div>
-        <div>category: {category}</div>
-        <div>brand: {brand}</div>
-        <div>brands: {JSON.stringify(brands)}</div><br/> */}
-        
-        <div className='grid grid-cols-5 gap-4'>
-          <div className=''>
-            <Image src={metadata[0]?.image} width={300} height={300} alt='' />
-            <div>Origem</div>
-            <div>Site</div>
-            <div>Redes sociais</div>
-            <div>Fundado em</div>
-            <div>Rating untappd</div>
-            <div>Outros metadados</div>
-          </div>
-          <div className='col-span-4'>
-            <div className='text-4xl font-bold'>{activeBrand?.name}</div>
-            <Rating value={4} />
-            <div>{metadata[0]?.description}</div>
-            <div className='flex my-4'>
-              {
-                categories.map(category => {
-                  return <div key={category.name} className='rounded-full px-8 py-2 mr-2 bg-gray-700 text-white cursor-pointer'>
-                    {category.name}
-                  </div>
-                })
-              }
+    <div className='overflow-hidden'>
+      <Container className=''>
+        <div className='mt-4 mb-12'>
+          <div className='mb-8'>Início &gt; Cervejarias &gt; {activeBrand?.name}</div>
+          
+          {/* <div className='text-4xl font-bold mb-4'>{activeBrand?.name}</div>
+          <div>activeBrand: {JSON.stringify(activeBrand)}</div>
+          <div>activeCategory: {JSON.stringify(activeCategory)}</div>
+          <div>activeFilter: {JSON.stringify(activeFilter)}</div>
+          <div>category: {category}</div>
+          <div>brand: {brand}</div>
+          <div>brands: {JSON.stringify(brands)}</div><br/> */}
+          
+          <div className='grid grid-cols-5 gap-4'>
+            <div className='hidden md:block'>
+              <Image src={metadata[0]?.image} width={300} height={300} alt='' />
+              <div>Origem</div>
+              <div>Site</div>
+              <div>Redes sociais</div>
+              <div>Fundado em</div>
+              <div>Rating untappd</div>
+              <div>Outros metadados</div>
             </div>
-            <div className='text-right my-4'>
-              Ordenar por: <select className='p-2 rounded-xl bg-white border'>
-                <option>Destaques</option>
-                <option>Relevância</option>
-                <option>Preço</option>
-              </select>
-            </div>
-            <div className='grid grid-cols-4 gap-4 mt-8'>
-              { data?.products.map(product => <ProductCard data={product} />) }
+            <div className='col-span-5 md:col-span-4'>
+              
+              <div className='grid grid-cols-3 gap-4 mb-4'>
+                <div className='md:hidden'>
+                  <Image src={metadata[0]?.image} width={150} height={150} alt='' />
+                </div>
+                <div className='col-span-2 md:col-span-3'>
+                  <div className='text-4xl font-bold'>{activeBrand?.name}</div>
+                  <Rating value={4} />
+                </div>
+              </div>
+              
+              <div className='line-clamp-6'>{metadata[0]?.description}</div>
+              <div className='my-4'>
+                {
+                  categories.map(category => {
+                    return <span key={category.name} className='rounded-full px-8 py-2 mr-2 bg-gray-700 text-white cursor-pointer'>
+                      {category.name}
+                    </span>
+                  })
+                }
+              </div>
+              <div className='text-right my-4'>
+                Ordenar por: <select className='p-2 rounded-xl bg-white border'>
+                  <option>Destaques</option>
+                  <option>Relevância</option>
+                  <option>Preço</option>
+                </select>
+              </div>
+              <div className='grid grid-cols-2 md:grid-cols-4 gap-4 mt-8'>
+                { data?.products.map(product => <ProductCard data={product} />) }
+              </div>
             </div>
           </div>
         </div>
-      
-      </div>
-      
-      <PartnerScroller />
-
-    </Container>
+        <PartnerScroller />
+      </Container>
+    </div>
   )
 }
 
