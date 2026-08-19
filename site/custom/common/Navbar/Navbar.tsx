@@ -25,15 +25,15 @@ const BottomNavbar: FC<NavbarProps> = ({ links }) => {
         <div className="flex items-center flex-1">
           <nav className={s.navMenu}>
             <NavLink href='/' title='Início' />
+            <NavLink href='/search/' title='Cervejas' />
+            <NavLink href='/search/estilos' title='Estilos' />
+            <NavLink href='/search/acessorios' title='Copos' />            
+            <NavLink href='/search/cervejarias' title='Cervejarias' />
             <NavLink href='/sobre' title='Quem somos' />
             <NavLink href='/contato' title='Contato' />
             {/* On hover, open nacionais/importadas and a sublist of items */}
-            <NavLink href='/search/' title='Cervejas' />
-            <NavLink href='/search/cervejarias' title='Cervejarias' />
             {/* On hover, open dropdown with list of styles */}
-            <NavLink href='/search/estilos' title='Estilos' />
             {/* On hover, copos, taças e outros acessórios */}
-            <NavLink href='/search/acessorios' title='Copos' />            
           </nav>
         </div>
       </div>

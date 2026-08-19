@@ -31,6 +31,7 @@ const ProductCard = ({ data }: any) => {
             <div className='p-2 text-center'>
                 <div className='text-xl truncate'>{product.name}</div>
                 <div className='truncate'>{product.vendor}</div>
+                <div>[adicionar estilos]</div>
                 <div className='my-2 text-xl font-bold'>
                 R$ {product.price.value.toFixed(2)}
                 </div>                      

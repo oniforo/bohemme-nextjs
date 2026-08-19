@@ -7,14 +7,14 @@ const PartnerGroup = () => {
         <div className='flex w-min animate-slide group-hover:pause'>
             {
                 partners.map(partner => (
-                    <Link 
-                        key={partner.slug} 
-                        href={`/search/cervejarias/${partner.slug}`} 
+                    <Link
+                        key={partner.slug}
+                        href={`/search/cervejarias/${partner.slug}`}
                         className='mx-4 w-24 md:w-32 hover:scale-110 cursor-pointer'
                     >
                         <Image src={partner.image} width={300} height={300} alt='' />
                     </Link>
-            ))
+                ))
             }
         </div>
     )
@@ -22,7 +22,7 @@ const PartnerGroup = () => {
 
 const PartnerScroller = () => {
     return (
-        <div className='mb-8 flex group'>
+        <div className='mb-8 flex group bg-amber-50'>
             <PartnerGroup />
             <PartnerGroup />
             <PartnerGroup />

@@ -103,7 +103,7 @@ const ProductView: FC<ProductViewProps> = ({ product, relatedProducts }) => {
                                         <div className='text-center mb-2 font-bold'>{key}</div>
                                         <div className='
                                             aspect-square flex justify-center items-center rounded-xl
-                                            text-xl md:text-2xl font-semibold bg-amber-900 text-white
+                                            text-xl md:text-2xl font-semibold border-2 border-amber-900 text-amber-900
                                         '>{value}</div>
                                     </div>            
                                 )
