@@ -5,6 +5,7 @@
   "scripts": {
     "build": "turbo run build --filter=next-commerce...",
     "dev": "turbo run dev",
+    "stop": "node scripts/kill-dev.js",
     "start": "turbo run start",
     "types": "turbo run types",
     "prettier-fix": "prettier --write ."

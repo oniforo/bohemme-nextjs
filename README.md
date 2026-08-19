@@ -41,6 +41,20 @@ The app runs at `http://localhost:3000`.
 
 > First run after a fresh clone: always `pnpm build` from the repo root before `pnpm dev` inside `site/` — the provider packages need a compiled `dist/` to resolve against.
 
+### Stopping the dev server
+
+`pnpm dev` doesn't run as one process — Turborepo fans it out into one process per workspace package (a `taskr` watcher each, plus `next dev` for `site/`). On Windows, stopping it isn't always as clean as it looks: pnpm runs each package's script through its own `cmd.exe` wrapper, and Ctrl+C in the terminal doesn't reliably cascade through that wrapper to every child. If you stop the server and only the one bound to port 3000 actually dies, the rest keep running in the background as orphans.
+
+That matters because those orphans don't just sit idle — if you then start a *second* `pnpm dev`, you now have two watchers per package racing to clear-and-rebuild the same `dist/` folders, which shows up as intermittent `ENOENT` errors on files that clearly exist (see Troubleshooting below).
+
+Run this instead of trusting Ctrl+C to have fully cleaned up:
+
+```bash
+pnpm stop
+```
+
+It walks the process table for anything whose command line points inside this repo (skipping its own process) and kills it — safer than `taskkill /F /IM node.exe`, which kills every Node process on the machine, including unrelated ones like editor extensions.
+
 ## Commerce provider
 
 The active backend is selected by `COMMERCE_PROVIDER` in `site/.env.local`:
@@ -115,14 +129,16 @@ VS Code's bundled TypeScript (5.5+) sometimes suggests adding `"ignoreDeprecatio
 <summary>Intermittent <code>ENOENT .../packages/&lt;provider&gt;/dist/index.js</code> while running <code>pnpm dev</code></summary>
 <br>
 
-Each workspace package runs its own watcher (`clear dist → rebuild → watch`) under Turborepo. On Windows, stopping `pnpm dev` by killing only the process bound to port 3000 leaves the other package watchers running as orphans. Starting a second `pnpm dev` then leaves two watchers racing on the same `dist/` folder, which shows up as an intermittent missing-file error. Stop the entire process tree (Ctrl+C in the terminal that started it) before starting a new one; if in doubt, check `wmic process where "name='node.exe'" get ProcessId,CommandLine` for duplicate `turbo run dev` / `taskr` entries.
+Each workspace package runs its own watcher (`clear dist → rebuild → watch`) under Turborepo. If a previous `pnpm dev` wasn't fully stopped (see [Stopping the dev server](#stopping-the-dev-server)), two watchers end up racing to clear-and-rebuild the same `dist/` folder, which shows up as an intermittent missing-file error. Run `pnpm stop` before starting a new `pnpm dev`; if in doubt, check `wmic process where "name='node.exe'" get ProcessId,CommandLine` for duplicate `turbo run dev` / `taskr` entries.
 </details>
 
 <details>
 <summary>When run locally I get <code>Error: Cannot find module '...@vercel/commerce/dist/config'</code></summary>
 <br>
 
-This happens when running `pnpm dev` inside `site/` right after a fresh install, before any provider package has been built. Run `pnpm build` in the monorepo root first.
+`next.config.js` requires `@vercel/commerce/dist/config` synchronously as soon as `next dev` starts. On a fresh install this fails because no provider package has been built yet — run `pnpm build` in the monorepo root first.
+
+It can also happen on an otherwise normal `pnpm dev`/`pnpm stop` cycle: Turborepo starts every package's `dev` task in parallel with no ordering between them (its `dev` pipeline has no `dependsOn`), and `packages/commerce`'s watcher clears and rebuilds its `dist/` on every start. If `next dev` boots and requires that module in the split second before the rebuild finishes, it loses the race and exits. The fix is just to retry — the package's `dist/` is populated moments later, so re-running `pnpm exec next dev` inside `site/` (or the whole `pnpm dev` again) succeeds.
 
 > Using `pnpm dev` from the repo root is recommended for day-to-day development — it runs watch mode on every package, not just `site/`.
 </details>
