@@ -2,6 +2,10 @@
 
 Beviamo (*"let's drink" — Cervejas Artesanais*) is a craft beer storefront built on top of [Next.js Commerce](https://github.com/vercel/commerce), Vercel's provider-agnostic e-commerce starter. It keeps the original multi-provider architecture and Turborepo monorepo layout, with a custom UI and content layer for browsing breweries, beer styles, and products.
 
+### Status
+
+Beviamo started as a real business initiative, but it didn't go beyond this stage — the site isn't in production and the storefront's Shopify backend isn't active. This repo now serves mainly as a portfolio piece: a full-featured storefront build on a real (if dormant) product idea, rather than a live e-commerce site. It's also built on an older snapshot of Next.js Commerce, not the latest template.
+
 ## Stack
 
 - **Turborepo** monorepo, **pnpm** workspaces
