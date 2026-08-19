@@ -1,6 +1,6 @@
 {
   "name": "commerce",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "private": true,
   "scripts": {
     "build": "turbo run build --filter=next-commerce...",
