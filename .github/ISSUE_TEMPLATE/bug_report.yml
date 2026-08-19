@@ -1,0 +1,23 @@
+name: Bug Report
+description: Report something broken in the Beviamo storefront
+labels: 'bug'
+body:
+  - type: markdown
+    attributes:
+      value: This is a portfolio project, not an actively maintained package — but if something's broken, I'd like to know.
+  - type: textarea
+    attributes:
+      label: What happened?
+      description: A clear description of the bug.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: How can this be reproduced?
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Where did this happen?
+      description: 'e.g. a specific page/URL, or running locally with `pnpm dev`'

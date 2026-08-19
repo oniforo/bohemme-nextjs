@@ -1,0 +1,10 @@
+name: Feedback or Question
+description: Share feedback or ask a question about this project
+labels: 'feedback'
+body:
+  - type: textarea
+    attributes:
+      label: What's on your mind?
+      description: Feedback, a question, or a suggestion.
+    validations:
+      required: true
