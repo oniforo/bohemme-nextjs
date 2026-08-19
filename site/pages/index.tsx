@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import commerce from '@lib/api/commerce'
+import type { Product } from '@commerce/types/product'
 
 /* Default components */
 import { Layout } from '@components/common'
@@ -38,7 +39,7 @@ export async function getStaticProps({
   const { pages } = await pagesPromise
   const { categories, brands } = await siteInfoPromise
 
-  const productVariants = products.map((product) => {
+  const productVariants = products.map((product: Product) => {
     return commerce.getProduct({
       variables: { slug: product.slug as string },
       config,
@@ -82,7 +83,8 @@ export default function Home({
       <div className='h-96 relative flex justify-center items-center select-none'>
         <div className='absolute text-white z-10 max-w-[1232px] pl-8'>
           <div className='text-4xl md:text-6xl font-extrabold'>Beviamo</div>
-          <div className='md:text-xl my-2 w-11/12 md:w-4/5'>Bem-vindos à nossa loja online de cervejas artesanais! Aqui você encontrará uma ampla variedade de cervejas de alta qualidade, cuidadosamente selecionadas dos melhores produtores artesanais. Estejam prontos para explorar e desfrutar deste mundo fascinante.</div>
+          <div className='md:text-xl my-2 w-11/12 md:w-4/5'>Essa é a sua nova loja de cervejas artesanais, aqui você encontra uma ampla variedade de cervejas artesanais de alta qualidade, cuidadosamente selecionadas dos melhores produtores artesanais. Você está pronto para explorar e desfrutar deste mundo fascinante?
+          </div>
           <Link href='sobre'>
             <div className='md:text-xl font-bold underline'>Saiba mais</div>
           </Link>
@@ -92,7 +94,7 @@ export default function Home({
 
       {/* TOP 10 */}
       <Container className='select-none py-8 border-b'>
-        <Title text='Seleção Beviamo, as 10 mais adoradas' />
+        <Title text={'Seleção Beviamo'} />
         <Swiper
           // @ts-ignore
           slidesPerView={slidesPerView(width)}
@@ -111,14 +113,16 @@ export default function Home({
       </Container>
 
       {/* INFINITE SCROLLER */}
-      <Container className='select-none py-8'>
-        <Title text='Nossas cervejarias parceiras' />
-      </Container>
+      <div className='bg-amber-50 pb-4'>
+        <Container className='select-none py-8 bg-amber-50'>
+          <Title text='Cervejarias Parceiras' />
+        </Container>
       <PartnerScroller />
+      </div>
 
       {/* Frete, parcelas, não curtiu? */}
       {/* Consultar /data/duvidas.json */}
-      <div className='bg-amber-50 select-none'>
+      {/* <div className='bg-amber-50 select-none'>
         <Container className='grid lg:grid-cols-3 gap-4 py-8'>
           {
             duvidas.map(element => {
@@ -138,10 +142,10 @@ export default function Home({
             })
           }          
         </Container>
-      </div>
+      </div> */}
       
       {/* CONFIRA OS ESTILOS DE CERVEJAS QUE TEMOS */}
-      <div className='bg-gray-100'>
+      <div className=''>
         <Container className='select-none py-8'>        
           <div className='font-bold text-2xl lg:text-4xl mb-8'>
             Confira alguns de nossos estilos de cerveja

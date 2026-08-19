@@ -6,6 +6,7 @@ import type {
 import { useRouter } from 'next/router'
 import commerce from '@lib/api/commerce'
 import { Layout } from '@components/common'
+import type { Product } from '@commerce/types/product'
 
 import { ProductView } from '@custom/beviamo'
 
@@ -34,7 +35,7 @@ export async function getStaticProps({
   const { product } = await productPromise
   const { products: relatedProducts } = await allProductsPromise
 
-  const productVariants = relatedProducts.map(product => {
+  const productVariants = relatedProducts.map((product: Product) => {
     return commerce.getProduct({
       variables: { slug: product.slug as string },
       config,

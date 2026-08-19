@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 
-import type { Brand } from '@commerce/types/site'
+import type { Brand, Category } from '@commerce/types/site'
 import type { Product } from '@commerce/types/product'
 
 import { Layout } from '@components/common'
@@ -81,7 +81,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
         <div>activeFilter: {JSON.stringify(activeFilter)}</div> */}
         <div className='flex mb-4'>
           {
-            categories.map(category => {
+            categories.map((category: Category) => {
               return <div key={category.name} className='rounded-full px-8 py-2 mr-2 bg-gray-700 text-white cursor-pointer'>
                 {category.name}
               </div>
@@ -110,9 +110,9 @@ export default function Search({ categories, brands }: SearchPropsType) {
           
           <div className='text-xl my-4'>Estilos de cerveja</div>
           {
-            categories.map(category => {
+            categories.map((category: Category) => {
               return (
-                <div className='block mb-2'>
+                <div key={category.id} className='block mb-2'>
                   <input className='mr-1' type='checkbox' id={category.id} value={category.name}/>
                   <label htmlFor={category.id}> {category.name}</label>                
                 </div>
@@ -122,9 +122,9 @@ export default function Search({ categories, brands }: SearchPropsType) {
                     
           <div className='text-xl my-4'>Cervejarias parceiras</div>
           {
-            brands.map(brand => {
+            brands.map((brand: Brand) => {
               return (
-                <div className='block mb-2'>
+                <div key={brand.id} className='block mb-2'>
                 <input className='mr-1' type='checkbox' id={brand.id} value={brand.name}/>
                 <label htmlFor={brand.id}> {brand.name}</label>                
                 </div>
@@ -136,7 +136,7 @@ export default function Search({ categories, brands }: SearchPropsType) {
         {/* Products */}
         <div className='col-span-4 grid grid-cols-4 gap-4'>          
           { 
-            data?.products.map(product => <ProductCard data={product} />)
+            data?.products.map((product: Product) => <ProductCard key={product.id} data={product} />)
           }
         </div>
       </div>
