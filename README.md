@@ -1,199 +1,128 @@
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fcommerce&project-name=commerce&repo-name=commerce&demo-title=Next.js%20Commerce&demo-description=An%20all-in-one%20starter%20kit%20for%20high-performance%20e-commerce%20sites.&demo-url=https%3A%2F%2Fdemo.vercel.store&demo-image=https%3A%2F%2Fbigcommerce-demo-asset-ksvtgfvnd.vercel.app%2Fbigcommerce.png&integration-ids=oac_MuWZiE4jtmQ2ejZQaQ7ncuDT,oac_9HSKtXld74NG0srzdxSiBGty&skippable-integrations=1&root-directory=site&build-command=cd%20..%20%26%26%20yarn%20build)
+# Beviamo
 
-# Next.js Commerce
+Beviamo (*"let's drink" — Cervejas Artesanais*) is a craft beer storefront built on top of [Next.js Commerce](https://github.com/vercel/commerce), Vercel's provider-agnostic e-commerce starter. It keeps the original multi-provider architecture and Turborepo monorepo layout, with a custom UI and content layer for browsing breweries, beer styles, and products.
 
-The all-in-one starter kit for high-performance e-commerce sites. With a few clicks, Next.js developers can clone, deploy and fully customize their own store.
-Start right now at [nextjs.org/commerce](https://nextjs.org/commerce)
+## Stack
 
-Demo live at: [demo.vercel.store](https://demo.vercel.store/)
+- **Turborepo** monorepo, **pnpm** workspaces
+- **Next.js 13** (pages router), **Tailwind CSS**
+- Vercel Commerce's provider abstraction (`packages/commerce`) — the storefront talks to a swappable backend through a single typed API
 
-- Shopify Demo: https://shopify.vercel.store/
-- Swell Demo: https://swell.vercel.store/
-- BigCommerce Demo: https://bigcommerce.vercel.store/
-- Vendure Demo: https://vendure.vercel.store
-- Saleor Demo: https://saleor.vercel.store/
-- Ordercloud Demo: https://ordercloud.vercel.store/
-- Spree Demo: https://spree.vercel.store/
-- Kibo Commerce Demo: https://kibocommerce.vercel.store/
-- Commerce.js Demo: https://commercejs.vercel.store/
-- SalesForce Cloud Commerce Demo: https://salesforce-cloud-commerce.vercel.store/
+## Project structure
 
-## Run minimal version locally
-
-> To run a minimal version of Next.js Commerce you can start with the default local provider `@vercel/commerce-local` that has all features disabled (cart, auth) and uses static files for the backend
-
-```bash
-pnpm install & pnpm build # run these commands in the root folder of the mono repo
-pnpm dev # run this command in the site folder
+```
+packages/
+  commerce/          shared types, hooks and the provider contract
+  local/              zero-backend provider (static JSON data), used for local UI dev
+  shopify/            Shopify Storefront API provider
+  <bigcommerce|saleor|swell|vendure|...>/  other supported providers
+site/
+  pages/              Next.js routes, incl. custom search/cervejarias/[name] and product/[slug]
+  custom/
+    beviamo/          Beviamo-specific UI: ProductCard, ProductView, PartnerScroller, Reviews, ...
+    components/       page-level custom components (brewery.tsx, search.tsx)
+    common/Navbar/     site navigation
+  data/               static content: partners, beer styles, products, reviews, FAQs
+  commerce.config.json  feature toggles (cart, search, wishlist, customerAuth, customCheckout)
+  commerce-config.js  wires COMMERCE_PROVIDER into next.config.js and syncs the @framework
+                      tsconfig path to the selected provider on every start
 ```
 
-> If you encounter any problems while installing and running for the first time, please see the Troubleshoot section
+## Getting started
 
-## Features
+```bash
+pnpm install
+pnpm build   # from the repo root — builds every provider package once
+cd site
+pnpm dev     # or run `pnpm dev` from the repo root to watch every package at once
+```
 
-- Performant by default
-- SEO Ready
-- Internationalization
-- Responsive
-- UI Components
-- Theming
-- Standardized Data Hooks
-- Integrations - Integrate seamlessly with the most common ecommerce platforms.
-- Dark Mode Support
+The app runs at `http://localhost:3000`.
 
-## Integrations
+> First run after a fresh clone: always `pnpm build` from the repo root before `pnpm dev` inside `site/` — the provider packages need a compiled `dist/` to resolve against.
 
-Next.js Commerce integrates out-of-the-box with BigCommerce, Shopify, Swell, Saleor, Vendure, Spree and Commerce.js. We plan to support all major ecommerce backends.
+## Commerce provider
 
-## Considerations
+The active backend is selected by `COMMERCE_PROVIDER` in `site/.env.local`:
 
-- `packages/commerce` contains all types, helpers and functions to be used as a base to build a new **provider**.
-- **Providers** live under `packages`'s root folder and they will extend Next.js Commerce types and functionality (`packages/commerce`).
-- We have a **Features API** to ensure feature parity between the UI and the Provider. The UI should update accordingly and no extra code should be bundled. All extra configuration for features will live under `features` in `commerce.config.json` and if needed it can also be accessed programmatically.
-- Each **provider** should add its corresponding `next.config.js` and `commerce.config.json` adding specific data related to the provider. For example in the case of BigCommerce, the images CDN and additional API routes.
+```
+COMMERCE_PROVIDER=@vercel/commerce-local
+```
 
-## Configuration
+`commerce-config.js` reads this once when `next.config.js` loads, so **changing it requires a full restart of `pnpm dev`** — saving `.env.local` alone does not pick it up.
 
-### How to change providers
+If `COMMERCE_PROVIDER` is unset, it falls back to inferring a provider from whichever backend's env vars are present (Shopify, BigCommerce, Swell), defaulting to `@vercel/commerce-local` otherwise. An explicit `COMMERCE_PROVIDER` always wins over that inference.
 
-Open `site/.env.local` and change the value of `COMMERCE_PROVIDER` to the provider you would like to use, then set the environment variables for that provider (use `site/.env.template` as the base).
-
-The setup for Shopify would look like this for example:
+Switching to Shopify:
 
 ```
 COMMERCE_PROVIDER=@vercel/commerce-shopify
-NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=xxxxxxx.myshopify.com
+NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
+
+`NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN` is a Storefront API token, not an Admin API key — Shopify designs it to be shipped to the client, so the `NEXT_PUBLIC_` prefix is intentional. Keep its scopes limited to read-only catalog access in the Shopify admin.
+
+> The `@vercel/commerce-local` provider is a stand-in for UI work — it serves the generic demo catalog (`packages/local`), not Beviamo's real product data, and some demo image assets are not present in this repo. It's fine for building/testing components, not for previewing real content.
 
 ### Features
 
-Every provider defines the features that it supports under `packages/{provider}/src/commerce.config.json`
+Toggle in `site/commerce.config.json`; the provider you're using must actually support the feature you're enabling:
 
-#### Features Available
-
-The following features can be enabled or disabled. This means that the UI will remove all code related to the feature.
-For example: turning `cart` off will disable Cart capabilities.
-
-- cart
-- search
-- wishlist
-- customerAuth
-- customCheckout
-
-#### How to turn Features on and off
-
-> NOTE: The selected provider should support the feature that you are toggling. (This means that you can't turn wishlist on if the provider doesn't support this functionality out of the box)
-
-- Open `site/commerce.config.json`
-- You'll see a config file like this:
-  ```json
-  {
-    "features": {
-      "wishlist": false,
-      "customCheckout": true
-    }
+```json
+{
+  "features": {
+    "cart": true,
+    "search": true,
+    "wishlist": false,
+    "customerAuth": false,
+    "customCheckout": false
   }
-  ```
-- Turn `wishlist` on by setting `wishlist` to `true`.
-- Run the app and the wishlist functionality should be back on.
-
-### How to create a new provider
-
-Follow our docs for [Adding a new Commerce Provider](packages/commerce/new-provider.md).
-
-If you succeeded building a provider, submit a PR with a valid demo and we'll review it asap.
-
-## Contribute
-
-Our commitment to Open Source can be found [here](https://vercel.com/oss).
-
-1. [Fork](https://help.github.com/articles/fork-a-repo/) this repository to your own GitHub account and then [clone](https://help.github.com/articles/cloning-a-repository/) it to your local device.
-2. Create a new branch `git checkout -b MY_BRANCH_NAME`
-3. Install the dependencies: `pnpm install`
-4. Build the packages: `pnpm build`
-5. Duplicate `site/.env.template` and rename it to `site/.env.local`
-6. Add proper store values to `site/.env.local`
-7. Run `cd site` & `pnpm dev` to watch for code changes
-8. Run `pnpm turbo run build` to check the build after your changes
-
-## Work in progress
-
-We're using Github Projects to keep track of issues in progress and todo's. Here is our [Board](https://github.com/vercel/commerce/projects/1)
-
-People actively working on this project: @okbel, @lfades, @dominiksipowicz, @gbibeaul.
-
-## Troubleshoot
-
-<details>
-<summary>I already own a BigCommerce store. What should I do?</summary>
-<br>
-First thing you do is: <b>set your environment variables</b>
-<br>
-<br>
-.env.local
-
-```sh
-BIGCOMMERCE_STOREFRONT_API_URL=<>
-BIGCOMMERCE_STOREFRONT_API_TOKEN=<>
-BIGCOMMERCE_STORE_API_URL=<>
-BIGCOMMERCE_STORE_API_TOKEN=<>
-BIGCOMMERCE_STORE_API_CLIENT_ID=<>
-BIGCOMMERCE_CHANNEL_ID=<>
+}
 ```
 
-If your project was started with a "Deploy with Vercel" button, you can use Vercel's CLI to retrieve these credentials.
+### Adding a new provider
 
-1. Install Vercel CLI: `npm i -g vercel`
-2. Link local instance with Vercel and Github accounts (creates .vercel file): `vercel link`
-3. Download your environment variables: `vercel env pull .env.local`
+Follow [Adding a new Commerce Provider](packages/commerce/new-provider.md).
 
-Next, you're free to customize the starter. More updates coming soon. Stay tuned..
+## Deployment
 
-</details>
-
-<details>
-<summary>BigCommerce shows a Coming Soon page and requests a Preview Code</summary>
-<br>
-After Email confirmation, Checkout should be manually enabled through BigCommerce platform. Look for "Review & test your store" section through BigCommerce's dashboard.
-<br>
-<br>
-BigCommerce team has been notified and they plan to add more details about this subject.
-</details>
-
-<details>
-<summary>When run locally I get `Error: Cannot find module '...@vercel/commerce/dist/config'`</summary>
+Deploys to Vercel with the project root set to `site/`.
 
 ```bash
-commerce/site
-❯ yarn dev
-yarn run v1.22.17
-$ next dev
-ready - started server on 0.0.0.0:3000, url: http://localhost:3000
-info  - Loaded env from /commerce/site/.env.local
-error - Failed to load next.config.js, see more info here https://nextjs.org/docs/messages/next-config-error
-Error: Cannot find module '/Users/dom/work/vercel/commerce/node_modules/@vercel/commerce/dist/config.cjs'
-    at createEsmNotFoundErr (node:internal/modules/cjs/loader:960:15)
-    at finalizeEsmResolution (node:internal/modules/cjs/loader:953:15)
-    at resolveExports (node:internal/modules/cjs/loader:482:14)
-    at Function.Module._findPath (node:internal/modules/cjs/loader:522:31)
-    at Function.Module._resolveFilename (node:internal/modules/cjs/loader:919:27)
-    at Function.mod._resolveFilename (/Users/dom/work/vercel/commerce/node_modules/next/dist/build/webpack/require-hook.js:179:28)
-    at Function.Module._load (node:internal/modules/cjs/loader:778:27)
-    at Module.require (node:internal/modules/cjs/loader:1005:19)
-    at require (node:internal/modules/cjs/helpers:102:18)
-    at Object.<anonymous> (/Users/dom/work/vercel/commerce/site/commerce-config.js:9:14) {
-  code: 'MODULE_NOT_FOUND',
-  path: '/Users/dom/work/vercel/commerce/node_modules/@vercel/commerce/package.json'
-}
-error Command failed with exit code 1.
-info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
+cd site
+vercel          # preview deployment
+vercel --prod   # production
 ```
 
-The error usually occurs when running `pnpm dev` inside of the `/site/` folder after installing a fresh repository.
+## Troubleshooting
 
-In order to fix this, run `pnpm build` in the monorepo root folder first.
+<details>
+<summary><code>next build</code> fails with <code>error TS5023: Unknown compiler option 'ignoreDeprecations'</code></summary>
+<br>
 
-> Using `pnpm dev` from the root is recommended for developing, which will run watch mode on all packages.
+VS Code's bundled TypeScript (5.5+) sometimes suggests adding `"ignoreDeprecations": "6.0"` to `site/tsconfig.json` to silence an editor-only deprecation warning (e.g. on `baseUrl`). The project's pinned TypeScript is **4.7.4** — it predates that option entirely and hard-errors on it before checking any file. Remove the line from `tsconfig.json`; it isn't needed by the actual build toolchain.
+</details>
 
+<details>
+<summary>The homepage / a data-fetching page returns a 500</summary>
+<br>
+
+`getStaticProps` is failing to reach the configured commerce backend. Check the error payload for the underlying cause — e.g. a Shopify store returning `402 Payment Required` means the store itself is frozen (expired trial / lapsed billing), not a bad token or domain. Verify directly against the provider's API before assuming the code is at fault.
+</details>
+
+<details>
+<summary>Intermittent <code>ENOENT .../packages/&lt;provider&gt;/dist/index.js</code> while running <code>pnpm dev</code></summary>
+<br>
+
+Each workspace package runs its own watcher (`clear dist → rebuild → watch`) under Turborepo. On Windows, stopping `pnpm dev` by killing only the process bound to port 3000 leaves the other package watchers running as orphans. Starting a second `pnpm dev` then leaves two watchers racing on the same `dist/` folder, which shows up as an intermittent missing-file error. Stop the entire process tree (Ctrl+C in the terminal that started it) before starting a new one; if in doubt, check `wmic process where "name='node.exe'" get ProcessId,CommandLine` for duplicate `turbo run dev` / `taskr` entries.
+</details>
+
+<details>
+<summary>When run locally I get <code>Error: Cannot find module '...@vercel/commerce/dist/config'</code></summary>
+<br>
+
+This happens when running `pnpm dev` inside `site/` right after a fresh install, before any provider package has been built. Run `pnpm build` in the monorepo root first.
+
+> Using `pnpm dev` from the repo root is recommended for day-to-day development — it runs watch mode on every package, not just `site/`.
 </details>
